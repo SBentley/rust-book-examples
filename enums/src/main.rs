@@ -9,6 +9,7 @@ enum Message {
     Write(String),
     ChangeColour(i32, i32, i32),
 }
+
 #[derive(Debug)]
 enum OlympicSport {
     Archery,
@@ -44,6 +45,24 @@ fn main() {
     println!("Calling value in pence with a 1p");
     println!("Value of Coin::one_p is {}", value_in_pence(Coin::one_p));
     println!("Value of (Handball) coin is {}", value_in_pence(Coin::fifty_p(OlympicSport::Handball)));
+    let five = Some(5);
+    let six = plus_one(five);
+    let none = plus_one(None);
+    if_let();
+}
+
+fn if_let() {
+    // Suffix literal, defines 0 as u8.    
+    let some_u8_value = Some(0u8);
+    
+    match some_u8_value {
+        Some(3) => println!("three"),
+        _ => (),
+    }
+    // Can also be written as...
+    if let Some(3) = some_u8_value {
+        println!("three");
+    }   
 }
 
 fn route(ip_kind: IpAddrKind) {
@@ -63,5 +82,12 @@ fn value_in_pence(coin: Coin) -> u8 {
             println!("Olympic 50p with sport: {:?}",sport);
             50
         },
+    }
+}
+
+fn plus_one(x: Option<i32>) -> Option<i32> {
+    match (x) {
+        None => None,
+        Some(i) => Some(i + 1)
     }
 }
