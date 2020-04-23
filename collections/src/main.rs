@@ -52,10 +52,67 @@ mod vectors {
     }
 }
 
+mod Strings {
+    pub fn basics() {
+        let mut s = String::new();
+
+        let data = "initial contents";
+        let s = data.to_string();
+        // we can call to_string directly on a literal
+        let s = "initial contents".to_string();
+        let mut s = String::from("initial contents");
+
+        s.push_str(" second contents");
+        s.push('.');
+        println!("{}", s);
+    }
+
+    pub fn concat() {
+        let s1 = String::from("Hello, ");
+        let s2 = String::from("world.");
+        let s3 = s1 + &s2; // s1 has been moved here and no longer usable
+
+        let s1 = String::from("tic");
+        let s2 = String::from("tac");
+        let s3 = String::from("toe");
+
+        let s = format!("{}-{}-{}", s1, s2, s3);
+
+        let len = String::from("Здравствуйте").len(); // 24 not 12 because of utf-8 needing 2 bytes
+        
+        let hello = "Здравствуйте";
+        let s = &hello[0..4]; // s = Зд as each character is 2 bytes. Latin chars are 1 byte
+        println!("{}",s);
+    }
+}
+
+mod HashMaps {
+use std::collections::HashMap;
+    pub fn create() {
+        let mut scores = HashMap::new();
+        scores.insert(String::from("Blue"), 10);
+        scores.insert(String::from("Yellow"), 50);
+        
+        let teams = vec![String::from("Blue"), String::from("Yellow")];
+        let initial_scores = vec![10,50];
+        let scores: HashMap<_,_> = teams.iter().zip(initial_scores.iter()).collect();
+
+        let team_name = String::from("Blue");
+        let score = scores.get(&team_name); // Retuns an Option<&V> as no guarantee value exists
+        
+        for (key, value) in &scores {
+            println!("{}: {}", key, value)
+        }
+    }
+}
+
 fn main() {
     println!("Hello, world!");
     vectors::create_vectors();
     vectors::read();
+    Strings::basics();
+    Strings::concat();
+    HashMaps::create();
 }
 
 
