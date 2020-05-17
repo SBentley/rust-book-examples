@@ -4,6 +4,7 @@ use std::rc::Rc;
 use std::cell::RefCell;
 
 mod interior_mutability;
+mod tree;
 #[derive(Debug)]
 enum List {
     Cons(Rc<RefCell<i32>>, Rc<List>),
@@ -73,6 +74,8 @@ fn main() {
     println!("a after = {:?}", a);
     println!("b after = {:?}", b);
     println!("c after = {:?}", c);
+
+    tree::tree();
 }
 
 fn hello(name: &str) {
